@@ -1,1 +1,1 @@
-Budget Tracker using React, React Context and TypeScript
+Budget Tracker using React, Context API and TypeScript
