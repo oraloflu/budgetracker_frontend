@@ -1,0 +1,112 @@
+{
+  "expenses": [
+    {
+      "id": 1,
+      "title": "migros",
+      "amount": 120.0,
+      "date": "2023-01-04"
+    },
+    {
+      "id": 2,
+      "title": "bauhaus",
+      "amount": 623.0,
+      "date": "2023-01-04"
+    },
+    {
+      "id": 3,
+      "title": "zara",
+      "amount": 770.0,
+      "date": "2023-01-04"
+    },
+    {
+      "id": 4,
+      "title": "koton",
+      "amount": 600.0,
+      "date": "2023-01-04"
+    },
+    {
+      "id": 5,
+      "title": "mavi",
+      "amount": 1300.0,
+      "date": "2023-01-04"
+    },
+    {
+      "id": 6,
+      "title": "happy center",
+      "amount": 313.0,
+      "date": "2023-01-04"
+    },
+    {
+      "id": 7,
+      "title": "migros",
+      "amount": 120.0,
+      "date": "2023-01-04"
+    },
+    {
+      "id": 8,
+      "title": "bauhaus",
+      "amount": 623.0,
+      "date": "2023-01-04"
+    },
+    {
+      "id": 9,
+      "title": "zara",
+      "amount": 770.0,
+      "date": "2023-01-04"
+    },
+    {
+      "id": 10,
+      "title": "koton",
+      "amount": 600.0,
+      "date": "2023-01-04"
+    },
+    {
+      "id": 11,
+      "title": "mavi",
+      "amount": 1300.0,
+      "date": "2023-01-04"
+    },
+    {
+      "id": 12,
+      "title": "happy center",
+      "amount": 313.0,
+      "date": "2023-01-04"
+    },
+    {
+      "id": 13,
+      "title": "migros",
+      "amount": 120.0,
+      "date": "2023-01-04"
+    },
+    {
+      "id": 14,
+      "title": "bauhaus",
+      "amount": 623.0,
+      "date": "2023-01-04"
+    },
+    {
+      "id": 15,
+      "title": "zara",
+      "amount": 770.0,
+      "date": "2023-01-04"
+    },
+    {
+      "id": 16,
+      "title": "koton",
+      "amount": 600.0,
+      "date": "2023-01-04"
+    },
+    {
+      "id": 17,
+      "title": "mavi",
+      "amount": 1300.0,
+      "date": "2023-01-04"
+    },
+    {
+      "id": 18,
+      "title": "happy center",
+      "amount": 313.0,
+      "date": "2023-01-04"
+    }
+  ]
+}

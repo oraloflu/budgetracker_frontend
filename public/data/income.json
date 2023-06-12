@@ -1,0 +1,28 @@
+{
+  "expenses": [
+    {
+      "id": 1,
+      "title": "salary",
+      "amount": 120.0,
+      "date": "2023-01-04"
+    },
+    {
+      "id": 2,
+      "title": "stock",
+      "amount": 623.0,
+      "date": "2023-01-04"
+    },
+    {
+      "id": 3,
+      "title": "rent",
+      "amount": 770.0,
+      "date": "2023-01-04"
+    },
+    {
+      "id": 4,
+      "title": "other",
+      "amount": 770.0,
+      "date": "2023-01-04"
+    }
+  ]
+}
