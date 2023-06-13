@@ -1,4 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { AsyncThunk, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
+import { AsyncThunkConfig } from '../allTransactions/allTransactionsSlice';
+import {
+    createTransactionThunk,
+    deleteTransactionThunk,
+    editTransactionThunk
+} from './transactionThunk';
 
 interface TransactionState {
     isLoading: boolean;
@@ -41,11 +48,20 @@ const initialState: TransactionState = {
     editTransactionId: ''
 };
 
+export const createTransaction: AsyncThunk<any, any, AsyncThunkConfig> =
+    createAsyncThunk('transaction/createTransaction', createTransactionThunk);
+
+export const editTransaction: AsyncThunk<any, any, AsyncThunkConfig> =
+    createAsyncThunk('transaction/editTransaction', editTransactionThunk);
+
+export const deleteTransaction: AsyncThunk<any, any, AsyncThunkConfig> =
+    createAsyncThunk('transaction/deleteTransaction', deleteTransactionThunk);
+
 const transactionSlice = createSlice({
     name: 'transactions',
     initialState,
     reducers: {
-        createTransaction: (state, action) => {
+        handleChange: (state, action) => {
             //state.transactions.push();
         },
         clearValues: () => {
@@ -56,6 +72,6 @@ const transactionSlice = createSlice({
     }
 });
 
-export const { createTransaction, clearValues } = transactionSlice.actions;
+export const { handleChange, clearValues } = transactionSlice.actions;
 
 export default transactionSlice.reducer;

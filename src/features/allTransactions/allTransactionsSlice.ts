@@ -1,7 +1,34 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { getAllTransactionsThunk, showStatsThunk } from './allTransactionsThunk';
+import {
+    createSlice,
+    createAsyncThunk,
+    AsyncThunk,
+    Dispatch
+} from '@reduxjs/toolkit';
+import {
+    getAllTransactionsThunk,
+    showStatsThunk
+} from './allTransactionsThunk';
 
-type Transaction = {
+export type AsyncThunkConfig = {
+    /** return type for `thunkApi.getState` */
+    state?: unknown;
+    /** type for `thunkApi.dispatch` */
+    dispatch?: Dispatch;
+    /** type of the `extra` argument for the thunk middleware, which will be passed in as `thunkApi.extra` */
+    extra?: unknown;
+    /** type to be passed into `rejectWithValue`'s first argument that will end up on `rejectedAction.payload` */
+    rejectValue?: unknown;
+    /** return type of the `serializeError` option callback */
+    serializedErrorType?: unknown;
+    /** type to be returned from the `getPendingMeta` option callback & merged into `pendingAction.meta` */
+    pendingMeta?: unknown;
+    /** type to be passed into the second argument of `fulfillWithValue` to finally be merged into `fulfilledAction.meta` */
+    fulfilledMeta?: unknown;
+    /** type to be passed into the second argument of `rejectWithValue` to finally be merged into `rejectedAction.meta` */
+    rejectedMeta?: unknown;
+};
+
+export type Transaction = {
     payment_mode: string;
     description: string;
     transaction_type: string[];
@@ -10,7 +37,7 @@ type Transaction = {
     date: string;
 };
 
-type TransactionStats = {
+export type TransactionStats = {
     food: number;
     transportation: number;
     mortgage_rental: number;
@@ -29,7 +56,7 @@ type TransactionStats = {
     bet_earnings: number;
 };
 
-interface FiltersState {
+export interface FiltersState {
     search: string;
     searchStatus: string;
     searchRange: {
@@ -45,6 +72,7 @@ interface FiltersState {
     sort: string;
     sortOptions: string[];
 }
+
 const initialFiltersState: FiltersState = {
     search: '',
     searchStatus: 'all',
@@ -62,7 +90,7 @@ const initialFiltersState: FiltersState = {
     sortOptions: ['latest', 'oldest', 'a-z', 'z-a']
 };
 
-interface AllTransactionsState {
+export interface AllTransactionsState {
     isLoading: boolean;
     transactions: Transaction[];
     totalTransactions: number;
@@ -98,17 +126,25 @@ const initialState: AllTransactionsState = {
     ...initialFiltersState
 };
 
-export const getAllTransactions = createAsyncThunk(
-    'allTransactions/getTransactions',
-    getAllTransactionsThunk
-);
+export const getAllTransactions: AsyncThunk<any, any, AsyncThunkConfig> =
+    createAsyncThunk(
+        'allTransactions/getTransactions',
+        getAllTransactionsThunk
+    );
 
-export const showStats = createAsyncThunk('allTransactions/showStats', showStatsThunk);
+export const showStats: AsyncThunk<any, any, AsyncThunkConfig> =
+    createAsyncThunk('allTransactions/showStats', showStatsThunk);
 
 const transactionSlice = createSlice({
     name: 'transactions',
     initialState,
     reducers: {
+        showLoading: (state) => {
+            state.isLoading = true;
+        },
+        hideLoading: (state) => {
+            state.isLoading = false;
+        },
         createTransaction: (state, action) => {
             state.transactions.push();
         },
@@ -116,6 +152,11 @@ const transactionSlice = createSlice({
     }
 });
 
-export const { createTransaction, clearAllTransactionsState } = transactionSlice.actions;
+export const {
+    showLoading,
+    hideLoading,
+    createTransaction,
+    clearAllTransactionsState
+} = transactionSlice.actions;
 
 export default transactionSlice.reducer;

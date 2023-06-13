@@ -3,7 +3,11 @@ import { clearAllTransactionsState } from '../allTransactions/allTransactionsSli
 import { clearValues } from '../transaction/transactionSlice';
 import { User, logoutUser } from './userSlice';
 
-export const registerUserThunk = async (url: string, user: User, thunkAPI: any) => {
+export const registerUserThunk = async (
+    url: string,
+    user: User,
+    thunkAPI: any
+) => {
     try {
         const resp = await customFetch.post(url, user);
         return resp.data as any;
@@ -12,7 +16,11 @@ export const registerUserThunk = async (url: string, user: User, thunkAPI: any) 
     }
 };
 
-export const loginUserThunk = async (url: string, user: User, thunkAPI: any) => {
+export const loginUserThunk = async (
+    url: string,
+    user: User,
+    thunkAPI: any
+) => {
     try {
         const resp = await customFetch.post(url, user);
         return resp.data as any;
@@ -21,7 +29,11 @@ export const loginUserThunk = async (url: string, user: User, thunkAPI: any) => 
     }
 };
 
-export const updateUserThunk = async (url: string, user: User, thunkAPI: any) => {
+export const updateUserThunk = async (
+    url: string,
+    user: User,
+    thunkAPI: any
+) => {
     try {
         const resp = await customFetch.patch(url, user);
         return resp.data as any;
