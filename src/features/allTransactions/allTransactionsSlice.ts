@@ -2,12 +2,14 @@ import {
     createSlice,
     createAsyncThunk,
     AsyncThunk,
-    Dispatch
+    Dispatch,
+    PayloadAction
 } from '@reduxjs/toolkit';
 import {
     getAllTransactionsThunk,
     showStatsThunk
 } from './allTransactionsThunk';
+import { toast } from 'react-toastify';
 
 export type AsyncThunkConfig = {
     /** return type for `thunkApi.getState` */
@@ -145,17 +147,66 @@ const transactionSlice = createSlice({
         hideLoading: (state) => {
             state.isLoading = false;
         },
-        createTransaction: (state, action) => {
-            state.transactions.push();
+        handleChange: (
+            state,
+            { payload: { name, value } }: { payload: any }
+        ) => {
+            state.page = 1;
+            state[name] = value;
+        },
+        clearFilters: (state) => {
+            return { ...state, ...initialFiltersState };
+        },
+        changePage: (state, { payload }: { payload: any }) => {
+            state.page = payload;
         },
         clearAllTransactionsState: (state) => initialState
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase(getAllTransactions.pending, (state) => {
+                state.isLoading = false;
+            })
+            .addCase(getAllTransactions.fulfilled, (state, { payload }) => {
+                state.isLoading = false;
+                state.transactions = payload.transactions;
+                state.numOfPages = payload.numOfPages;
+                state.totalTransactions = payload.totalTransactions;
+            })
+            .addCase(
+                getAllTransactions.rejected,
+                (state, { payload }: { payload: any }) => {
+                    state.isLoading = false;
+                    toast.error(payload);
+                }
+            );
+        builder
+            .addCase(showStats.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(
+                showStats.fulfilled,
+                (state, { payload }: { payload: any }) => {
+                    state.isLoading = false;
+                    state.stats = payload.defaultStats;
+                }
+            )
+            .addCase(
+                showStats.rejected,
+                (state, { payload }: { payload: any }) => {
+                    state.isLoading = false;
+                    toast.error(payload);
+                }
+            );
     }
 });
 
 export const {
     showLoading,
     hideLoading,
-    createTransaction,
+    handleChange,
+    clearFilters,
+    changePage,
     clearAllTransactionsState
 } = transactionSlice.actions;
 

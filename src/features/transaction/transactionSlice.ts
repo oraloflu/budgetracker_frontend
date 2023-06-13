@@ -1,4 +1,9 @@
-import { AsyncThunk, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import {
+    AsyncThunk,
+    createAsyncThunk,
+    createSlice,
+    PayloadAction
+} from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 import { AsyncThunkConfig } from '../allTransactions/allTransactionsSlice';
 import {
@@ -61,7 +66,7 @@ const transactionSlice = createSlice({
     name: 'transactions',
     initialState,
     reducers: {
-        handleChange: (state, action) => {
+        handleChange: (state, action: PayloadAction<{}>) => {
             //state.transactions.push();
         },
         clearValues: () => {
