@@ -74,6 +74,61 @@ const transactionSlice = createSlice({
                 ...initialState
             };
         }
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase(createTransaction.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(
+                createTransaction.fulfilled,
+                (state, action: PayloadAction<{}>) => {
+                    state.isLoading = false;
+                    toast.success('Transaction created');
+                }
+            )
+            .addCase(
+                createTransaction.rejected,
+                (state, { payload }: { payload: any }) => {
+                    state.isLoading = false;
+                    toast.error(payload);
+                }
+            );
+        builder
+            .addCase(editTransaction.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(
+                editTransaction.fulfilled,
+                (state, action: PayloadAction<{}>) => {
+                    state.isLoading = false;
+                    toast.success('Transaction modified...');
+                }
+            )
+            .addCase(
+                editTransaction.rejected,
+                (state, { payload }: { payload: any }) => {
+                    state.isLoading = false;
+                    toast.error(payload);
+                }
+            );
+        builder
+            .addCase(deleteTransaction.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(
+                deleteTransaction.fulfilled,
+                (state, action: PayloadAction<{}>) => {
+                    toast.success(action.payload as any);
+                }
+            )
+            .addCase(
+                deleteTransaction.rejected,
+                (state, { payload }: { payload: any }) => {
+                    state.isLoading = false;
+                    toast.error(payload);
+                }
+            );
     }
 });
 
