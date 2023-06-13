@@ -93,6 +93,7 @@ const initialFiltersState: FiltersState = {
 };
 
 export interface AllTransactionsState {
+    [key: string]: any;
     isLoading: boolean;
     transactions: Transaction[];
     totalTransactions: number;
@@ -149,10 +150,10 @@ const transactionSlice = createSlice({
         },
         handleChange: (
             state,
-            { payload: { name, value } }: { payload: any }
+            action: PayloadAction<{ name: string; value: string }>
         ) => {
             state.page = 1;
-            state[name] = value;
+            state[action.payload.name] = action.payload.value;
         },
         clearFilters: (state) => {
             return { ...state, ...initialFiltersState };

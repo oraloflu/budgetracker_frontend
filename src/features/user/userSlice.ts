@@ -1,4 +1,9 @@
-import { AsyncThunk, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import {
+    AsyncThunk,
+    createAsyncThunk,
+    createSlice,
+    PayloadAction
+} from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 import {
     addUserToLocalStorage,
@@ -53,7 +58,7 @@ const usersSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        logoutUser: (state, { payload }) => {
+        logoutUser: (state, action: PayloadAction<{ message?: string }>) => {
             state.user = {
                 firstname: '',
                 lastname: '',
@@ -63,8 +68,8 @@ const usersSlice = createSlice({
             state.isSidebarOpen = false;
             toast.success('Logout Successful');
             removeUserFromLocalStorage();
-            if (payload) {
-                toast.success(payload);
+            if (action.payload) {
+                toast.success(action.payload as any);
             }
         },
         toggleSidebar: (state) => {
@@ -76,13 +81,16 @@ const usersSlice = createSlice({
             .addCase(registerUser.pending, (state) => {
                 state.isLoading = true;
             })
-            .addCase(registerUser.fulfilled, (state, { payload }) => {
-                const { user } = payload;
-                state.isLoading = false;
-                state.user = user;
-                addUserToLocalStorage(user);
-                toast.success(`Hello there ${user.firstname}`);
-            })
+            .addCase(
+                registerUser.fulfilled,
+                (state, action: PayloadAction<{ user: User }>) => {
+                    const { user } = action.payload;
+                    state.isLoading = false;
+                    state.user = user;
+                    addUserToLocalStorage(user);
+                    toast.success(`Hello there ${user.firstname}`);
+                }
+            )
             .addCase(
                 registerUser.rejected,
                 (state, { payload }: { payload: any }) => {
@@ -90,9 +98,55 @@ const usersSlice = createSlice({
                     toast.error(payload);
                 }
             );
+        builder
+            .addCase(loginUser.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(
+                loginUser.fulfilled,
+                (state, action: PayloadAction<{ user: User }>) => {
+                    const { user } = action.payload;
+                    state.isLoading = false;
+                    state.user = user;
+                    addUserToLocalStorage(user);
+                    toast.success(`Welcome back ${user.firstname}`);
+                }
+            )
+            .addCase(
+                loginUser.rejected,
+                (state, { payload }: { payload: any }) => {
+                    state.isLoading = false;
+                    toast.error(payload);
+                }
+            );
+        builder
+            .addCase(updateUser.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(
+                updateUser.fulfilled,
+                (state, action: PayloadAction<{ user: User }>) => {
+                    const { user } = action.payload;
+                    state.isLoading = false;
+                    state.user = user;
+
+                    addUserToLocalStorage(user);
+                    toast.success('User updated!');
+                }
+            )
+            .addCase(
+                updateUser.rejected,
+                (state, { payload }: { payload: any }) => {
+                    state.isLoading = false;
+                    toast.error(payload);
+                }
+            );
+        builder.addCase(clearStore.rejected, () => {
+            toast.error('There was an error');
+        });
     }
 });
 
-export const { logoutUser } = usersSlice.actions;
+export const { logoutUser, toggleSidebar } = usersSlice.actions;
 
 export default usersSlice.reducer;
