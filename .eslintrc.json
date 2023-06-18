@@ -35,6 +35,9 @@
     "@typescript-eslint/semi": ["error", "always"],
     "@typescript-eslint/space-before-function-paren": ["error", "never"],
     "@typescript-eslint/consistent-type-exports": "off",
-    "@typescript-eslint/consistent-type-imports": "off"
+    "@typescript-eslint/consistent-type-imports": "off",
+    "@typescript-eslint/strict-boolean-expressions": 0,
+    "@typescript-eslint/restrict-template-expressions": "off",
+    "@typescript-eslint/no-floating-promises": "off"
   }
 }

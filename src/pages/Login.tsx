@@ -1,90 +1,125 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, ChangeEvent, SyntheticEvent, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import Button from '../components/Button';
 import FormRow from '../components/FormRow';
 import FormTitle from '../components/FormTitle';
+import { Navbar } from '../components';
+import { useAppSelector, useAppDispatch } from '../hooks/hooks';
+import { toast } from 'react-toastify';
+import { loginUser, registerUser } from '../features/user/userSlice';
+
+const initialState = {
+  firstname: '',
+  lastname: '',
+  email: '',
+  password: '',
+  isMember: true
+};
 
 export default function Login(): JSX.Element {
-  const [firstname, setfirstname] = useState('');
-  const [lastname, setLastname] = useState('');
-  const [username, setUsername] = useState('');
-  const [dob, setDOB] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const isMember = false;
+  const [values, setValues] = useState(initialState);
+
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  // eslint-disable-next-line
+  const { user, isLoading } = useAppSelector((store) => store.user);
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    const value = event.target.value;
+    const name = event.target.name;
+    setValues({ ...values, [name]: value });
+  };
+
+  const handleSubmit = (event: SyntheticEvent<HTMLFormElement>): void => {
+    event.preventDefault();
+    const { firstname, lastname, email, password, isMember } = values;
+
+    if (!firstname || !lastname || !email || !password) {
+      toast.error('Please fill out all required fields');
+    }
+
+    if (isMember) {
+      dispatch(loginUser({ email, password }));
+      return;
+    }
+    dispatch(registerUser({ firstname, lastname, email, password }));
+    navigate('/');
+  };
+
+  /*   const toggleMember = (): void => {
+    setValues({ ...values, isMember: !values.isMember });
+  }; */
+
+  useEffect(() => {
+    if (user) {
+      setTimeout(() => {
+        navigate('/');
+      }, 3000);
+    }
+  }, [user, navigate]);
 
   return (
-    <section className="h-auto w-full mt-6">
-      <form
-        action=""
-        className="rounded shadow-md m-auto mt-4 mb-6 pt-4 
-                pb-10 px-10 w-1/4 h-auto bottom-28 border-2"
-      >
-        <FormTitle title={isMember ? 'Login' : 'Register'} />
-        {!isMember && (
-          <>
+    <>
+      <Navbar />
+      <section className="min-h-screen w-full flex flex-col justify-center items-center -mt-10">
+        <div className="w-full">
+          <form
+            action=""
+            className="flex flex-col justify-center items-center rounded shadow-md m-auto mt-4 mb-6 pt-4 pb-10 px-10 w-1/4 h-auto bottom-28 border-2"
+            onSubmit={handleSubmit}
+          >
+            <FormTitle title={values.isMember ? 'Login' : 'Register'} />
+            {!values.isMember && (
+              <>
+                <FormRow
+                  name="firstname"
+                  text="Firstname"
+                  type="text"
+                  placeholder=""
+                  value={values.firstname}
+                  onchange={handleChange}
+                />
+                <FormRow
+                  name="lastname"
+                  text="Lastname"
+                  type="text"
+                  placeholder=""
+                  value={values.lastname}
+                  onchange={handleChange}
+                />
+              </>
+            )}
             <FormRow
-              name="firstname"
-              text="Firstname"
-              type="text"
+              name="email"
+              text="Email"
+              type="email"
               placeholder=""
-              value={firstname}
-              onchange={(e) => setfirstname(e.target.value)}
+              value={values.email}
+              onchange={handleChange}
             />
             <FormRow
-              name="lastname"
-              text="Lastname"
-              type="text"
+              name="password"
+              text="Password"
+              type="password"
               placeholder=""
-              value={lastname}
-              onchange={(e) => setLastname(e.target.value)}
+              value={values.password}
+              onchange={handleChange}
             />
-            <FormRow
-              name="username"
-              text="Username"
-              type="text"
-              placeholder=""
-              value={username}
-              onchange={(e) => setUsername(e.target.value)}
+            <Button
+              id="btnLogin"
+              type="button"
+              text={values.isMember ? 'Login' : 'Register'}
+              onclick={() => null}
             />
-            <FormRow
-              name="dob"
-              text="Birthday"
-              type="text"
-              placeholder=""
-              value={dob}
-              onchange={(e) => setDOB(e.target.value)}
-            />
-          </>
-        )}
-        <FormRow
-          name="email"
-          text="Email"
-          type="email"
-          placeholder=""
-          value={email}
-          onchange={(e) => setEmail(e.target.value)}
-        />
-        <FormRow
-          name="password"
-          text="Password"
-          type="password"
-          placeholder=""
-          value={password}
-          onchange={(e) => setPassword(e.target.value)}
-        />
-        <Button
-          id="btnLogin"
-          type="button"
-          text={isMember ? 'Login' : 'Register'}
-          onclick={() => null}
-        />
-        <small className="font-normal text-sm text-cyan-800 ml-4 mt-4 block">
-          {isMember && <Link to="/forgot-password">Forgot your password?</Link>}
-          {!isMember && <Link to="/login">Already a member?</Link>}
-        </small>
-      </form>
-      <Link to="/landing">Go To Landing</Link>
-    </section>
+            <small className="font-normal text-sm text-cyan-800 ml-4 mt-4 block">
+              {values.isMember && (
+                <Link to="/forgot-password">Forgot your password?</Link>
+              )}
+              {!values.isMember && <Link to="/login">Already a member?</Link>}
+            </small>
+          </form>
+        </div>
+      </section>
+    </>
   );
 }

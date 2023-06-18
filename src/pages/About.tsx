@@ -1,7 +1,7 @@
 import React from 'react';
 import { Hero, Navbar } from '../components';
 
-export default function Landing(): JSX.Element {
+export default function About(): JSX.Element {
   return (
     <>
       <Navbar />
