@@ -1,15 +1,26 @@
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { menuLinks } from '../utils/links';
 import Logo from './Logo';
 import Profile from './Profile';
 
 export default function Sidebar(): JSX.Element {
-  const navLinkStyles = ({ isActive }: { isActive: boolean }) => {
+  interface NavLinkStyles {
+    boxShadow: string;
+    backgroundColor: string;
+    color: string;
+    transition: string;
+  }
+  const navLinkStyles = ({
+    isActive
+  }: {
+    isActive: boolean;
+  }): NavLinkStyles => {
     return {
       boxShadow: isActive ? '2px 3px 5px rgb(0, 0, 0, .8)' : '',
       backgroundColor: isActive ? 'rgba(37, 37, 37, .2)' : '',
       color: isActive ? 'white' : '',
-      transition: isActive ? '300ms all' : '',
+      transition: isActive ? '300ms all' : ''
     };
   };
   return (

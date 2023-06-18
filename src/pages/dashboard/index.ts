@@ -1,7 +1,6 @@
-import Income from './Income';
-import Expenses from './Expenses';
+import Transaction from './Transaction';
 import Stats from './Stats';
 import SharedLayout from './SharedLayout';
 import Settings from './Settings';
 
-export { Income, Stats, Expenses, SharedLayout, Settings };
+export { Stats, Transaction, SharedLayout, Settings };

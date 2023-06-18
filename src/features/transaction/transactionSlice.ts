@@ -13,6 +13,7 @@ import {
 } from './transactionThunk';
 
 interface TransactionState {
+    [key: string]: any;
     isLoading: boolean;
     payment_mode: string;
     description: string;
@@ -66,13 +67,19 @@ const transactionSlice = createSlice({
     name: 'transactions',
     initialState,
     reducers: {
-        handleChange: (state, action: PayloadAction<{}>) => {
-            //state.transactions.push();
+        handleChange: (
+            state,
+            action: PayloadAction<{ name: string; value: string }>
+        ): void => {
+            state[action.payload.name] = action.payload.value;
         },
         clearValues: () => {
             return {
                 ...initialState
             };
+        },
+        setEditTransaction: (state, action: PayloadAction<{}>) => {
+            return { ...state, isEditing: true, ...action.payload };
         }
     },
     extraReducers: (builder) => {

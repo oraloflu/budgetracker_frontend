@@ -1,6 +1,6 @@
+import React from 'react';
 import Button from './Button';
 import FormRow from './FormRow';
-import { useGlobalContext } from '../context/AppContext';
 import { ChangeEvent, FormEvent, MouseEvent, useState } from 'react';
 import { IExpense } from '../types/expense.type';
 
@@ -8,7 +8,7 @@ export default function Modal() {
   const [expense, setExpense] = useState({
     title: '',
     amount: 0,
-    date: '',
+    date: ''
   });
   const { setIsModalOpen, createExpense } = useGlobalContext();
 
@@ -29,7 +29,7 @@ export default function Modal() {
     setExpense({
       title: '',
       amount: 0,
-      date: '',
+      date: ''
     });
   };
 

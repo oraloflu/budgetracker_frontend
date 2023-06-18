@@ -1,6 +1,8 @@
-type Props = {
+import React from 'react';
+
+interface Props {
   title?: string;
-};
+}
 export default function FormTitle({ title }: Props): JSX.Element {
   return (
     <div className="py-2">

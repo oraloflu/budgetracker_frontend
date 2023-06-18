@@ -4,17 +4,17 @@ import usersReducer from '../features/user/userSlice';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
 export const store = configureStore({
-    reducer: {
-        transaction: transactionReducer,
-        users: usersReducer
-    }
+  reducer: {
+    transactions: transactionReducer,
+    users: usersReducer
+  }
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;
 // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export const useAppDispatch: () => typeof store.dispatch = useDispatch;
-
+// eslint-disable-next-line
 export const useAppSelector: TypedUseSelectorHook<
-    ReturnType<typeof store.getState>
+  ReturnType<typeof store.getState>
 > = useSelector;

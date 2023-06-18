@@ -1,4 +1,6 @@
-type Props = {
+import React from 'react';
+
+interface Props {
   text: string;
   onclick: React.MouseEventHandler;
   /*  type: React.DetailedHTMLProps<
@@ -7,9 +9,14 @@ type Props = {
   >; */
   type: 'button' | 'submit' | 'reset' | undefined;
   id: string;
-};
+}
 
-export default function Button({ text, onclick, type, id }: Props) {
+export default function Button({
+  text,
+  onclick,
+  type,
+  id
+}: Props): JSX.Element {
   return (
     <div className="w-11/12 h-auto">
       <button

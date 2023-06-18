@@ -1,13 +1,13 @@
-import { ChangeEvent } from 'react';
+import React from 'react';
 
-type Props = {
+interface Props {
   type?: string;
   text?: string;
   name?: string;
   placeholder?: string;
   value?: string;
   onchange?: React.ChangeEventHandler<HTMLInputElement> | undefined;
-};
+}
 
 export default function FormRow({
   type,
@@ -15,7 +15,7 @@ export default function FormRow({
   name,
   placeholder,
   value,
-  onchange,
+  onchange
 }: Props): JSX.Element {
   return (
     <div className="w-11/12 h-auto flex items-start justify-start flex-col mb-4">

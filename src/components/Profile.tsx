@@ -1,3 +1,4 @@
+import React from 'react';
 import Person from '../assets/images/pexels-jeffrey-reed-769745.jpg';
 
 export default function Profile(): JSX.Element {

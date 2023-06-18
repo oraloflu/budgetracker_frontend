@@ -1,3 +1,5 @@
+import React from 'react';
+
 import Hamburger from './Hamburger';
 import HeaderTitle from './HeaderTitle';
 
