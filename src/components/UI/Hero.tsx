@@ -1,5 +1,5 @@
 import React from 'react';
-import HeroBg from '../assets/pictures/vault.svg';
+import HeroBg from '../../assets/pictures/vault.svg';
 export default function Hero(): JSX.Element {
   return (
     <div className="w-full mx-auto">

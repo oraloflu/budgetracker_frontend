@@ -1,7 +1,7 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { formatter, currency_symbol } from '../utils/functions';
-import Button from './Button';
-import FormRow from './FormRow';
+import Button from './Form/Button';
+import FormRow from './Form/FormRow';
 import { useAppSelector, useAppDispatch } from '../hooks/hooks';
 import { Transaction } from '../features/transaction/transactionSlice';
 

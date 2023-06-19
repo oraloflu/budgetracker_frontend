@@ -1,7 +1,7 @@
 import React from 'react';
-import { navLinks } from '../utils/links';
+import { navLinks } from '../../utils/links';
 import { NavLink } from 'react-router-dom';
-import Logo_white from './Logo_white';
+import Logo_white from '../UI/Logo_white';
 
 export default function Navbar(): JSX.Element {
   return (

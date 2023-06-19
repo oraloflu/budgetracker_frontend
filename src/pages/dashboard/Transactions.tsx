@@ -2,8 +2,8 @@ import React from 'react';
 import { formatter, currency_symbol } from '../../utils/functions';
 import SingleTransaction from '../../components/SingleTransaction';
 import { Link } from 'react-router-dom';
-import Button from '../../components/Button';
-import Modal from '../../components/Modal';
+import Button from '../../components/Form/Button';
+import Modal from '../../components/Templates/Modal';
 import { useAppSelector, useAppDispatch } from '../../hooks/hooks';
 import { Transaction, setIsModalOpen } from '../../features/transaction/transactionSlice';
 

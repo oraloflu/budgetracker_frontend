@@ -25,8 +25,7 @@ export default function FormRow({
       <input
         id={name}
         type={type}
-        className="h-11 rounded font-semibold w-full 
-              border outline-0 px-2 py-2 placeholder:font-normal opacity-80"
+        className="h-11 rounded font-semibold w-full border outline-0 px-2 py-2 placeholder:font-normal opacity-80"
         name={name}
         placeholder={placeholder}
         value={value}

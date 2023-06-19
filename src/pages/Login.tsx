@@ -1,8 +1,8 @@
 import React, { useState, ChangeEvent, SyntheticEvent, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import Button from '../components/Button';
-import FormRow from '../components/FormRow';
-import FormTitle from '../components/FormTitle';
+import Button from '../components/Form/Button';
+import FormRow from '../components/Form/FormRow';
+import FormTitle from '../components/Form/FormTitle';
 import { Navbar } from '../components';
 import { useAppSelector, useAppDispatch } from '../hooks/hooks';
 import { toast } from 'react-toastify';

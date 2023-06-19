@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import Budgetracker from '../assets/images/budgetracker-dark-logo.svg';
+import Budgetracker from '../../assets/images/budgeTracker-logo.svg';
 
 interface Proptypes {
   to: string;

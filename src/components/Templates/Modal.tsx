@@ -1,10 +1,9 @@
-import React from 'react';
-import Button from './Button';
-import FormRow from './FormRow';
-import { ChangeEvent, FormEvent, MouseEvent, useState } from 'react';
-import { IExpense } from '../types/expense.type';
+import React, { ChangeEvent, FormEvent, MouseEvent, useState } from 'react';
+import Button from '../Form/Button';
+import FormRow from '../Form/FormRow';
+import { IExpense } from '../../types/expense.type';
 
-export default function Modal() {
+export default function Modal(): JSX.Element {
   const [expense, setExpense] = useState({
     title: '',
     amount: 0,
@@ -12,18 +11,18 @@ export default function Modal() {
   });
   const { setIsModalOpen, createExpense } = useGlobalContext();
 
-  const handleClick = (event: MouseEvent<Element, globalThis.MouseEvent>) => {
+  const handleClick = (event: MouseEvent<Element, globalThis.MouseEvent>): void => {
     setIsModalOpen(false);
   };
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
     const value = event.target.value;
     const name = event.target.name;
     const newExpense = { ...expense, [name]: value };
     setExpense(newExpense);
   };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
     createExpense(expense);
     setExpense({
@@ -34,15 +33,10 @@ export default function Modal() {
   };
 
   return (
-    <section
-      className="w-full h-full z-10 absolute inset-0 
-    flex items-center justify-center"
-    >
+    <section className="w-full h-full z-10 absolute inset-0 flex items-center justify-center">
       <div className="shadow-2xl w-1/3 h-96 bg-slate-200 relative rounded py-2 px-8">
         <div
-          className="w-8 h-8 font-semibold text-base 
-          absolute top-3 right-6 rounded-full bg-rose-800
-          px-2.5 py-1 cursor-pointer text-white"
+          className="w-8 h-8 font-semibold text-base absolute top-3 right-6 rounded-full bg-rose-800 px-2.5 py-1 cursor-pointer text-white"
           onClick={handleClick}
         >
           X

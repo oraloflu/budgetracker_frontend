@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { menuLinks } from '../utils/links';
-import Logo from './Logo';
+import Logo from './UI/Logo';
 import Profile from './Profile';
 
 export default function Sidebar(): JSX.Element {
